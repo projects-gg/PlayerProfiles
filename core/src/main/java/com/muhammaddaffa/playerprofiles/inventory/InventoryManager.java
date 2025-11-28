@@ -33,6 +33,12 @@ public class InventoryManager {
     public void openInventory(@Nullable CustomGUI customGUI, Player player, Player target){
         // Check if the file name is null (means it's the main inventory)
         if(customGUI == null){
+            ProfileCommandEvent event = new ProfileCommandEvent(player, target);
+            Bukkit.getPluginManager().callEvent(event);
+            if (event.isCancelled()) {
+                return;
+            }
+
             FileConfiguration config = PlayerProfiles.GUI_DEFAULT.getConfig();
 
             String title = config.getString("title");
