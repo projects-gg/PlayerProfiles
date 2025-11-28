@@ -15,6 +15,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,6 +37,8 @@ public class PlayerInteract implements Listener {
         // Get the player object from this event
         Player player = event.getPlayer();
         if (!player.canSee(clicked)) return;
+        if (clicked.hasPotionEffect(PotionEffectType.INVISIBILITY)) return;
+        if (clicked.hasMetadata("VANISH")) return;
         // We check if the server is 1.9+, means they have off hand
         // This event will be fired twice for both main hand and off hand
         // So we want to stop the code if the interact hand is an off hand
