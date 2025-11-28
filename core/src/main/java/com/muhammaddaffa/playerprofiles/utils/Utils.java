@@ -85,6 +85,8 @@ public class Utils {
     }
 
     public static void sendMessage(CommandSender sendTo, String msg) {
+        if (msg.isBlank()) return;
+
         sendTo.sendMessage(msg);
     }
 
