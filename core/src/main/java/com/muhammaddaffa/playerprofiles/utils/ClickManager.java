@@ -71,20 +71,20 @@ public class ClickManager {
         }
         if (tag.equalsIgnoreCase("[MESSAGE] ")) {
             // Send the player a message
-            player.sendMessage(Common.color(finalTask));
+            Utils.sendMessage(player, Common.color(finalTask));
             // Send the target a message
-            target.sendMessage(Common.color(finalTask));
+            Utils.sendMessage(target, Common.color(finalTask));
             return;
         }
         // Check if the tag is MESSAGE
         if(tag.equalsIgnoreCase("[MESSAGEPLAYER] ")) {
             // Send the player a message
-            player.sendMessage(Common.color(finalTask));
+            Utils.sendMessage(player, Common.color(finalTask));
             return;
         }
         if (tag.equalsIgnoreCase("[MESSAGETARGET] ")) {
             // Send the target a message
-            target.sendMessage(Common.color(finalTask));
+            Utils.sendMessage(target, Common.color(finalTask));
             return;
         }
         // Check if the tag is OPENGUIMENU

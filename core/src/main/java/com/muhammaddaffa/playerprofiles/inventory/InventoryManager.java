@@ -2,6 +2,7 @@ package com.muhammaddaffa.playerprofiles.inventory;
 
 import com.muhammaddaffa.mdlib.fastinv.FastInv;
 import com.muhammaddaffa.playerprofiles.PlayerProfiles;
+import com.muhammaddaffa.playerprofiles.api.ProfileCommandEvent;
 import com.muhammaddaffa.playerprofiles.inventory.items.ItemsLoader;
 import com.muhammaddaffa.playerprofiles.manager.customgui.CustomGUI;
 import com.muhammaddaffa.playerprofiles.manager.customgui.CustomGUIManager;
@@ -49,6 +50,13 @@ public class InventoryManager {
         FastInv inventory = new ProfileInventory(customGUI.items(), player, target, customGUI.size(), customGUI.title());
         //System.out.println("NOT NULL");
         // Finally open the inventory for the player
+
+        ProfileCommandEvent event = new ProfileCommandEvent(player);
+        Bukkit.getPluginManager().callEvent(event);
+        if (event.isCancelled()) {
+            return;
+        }
+
         inventory.open(player);
     }
 

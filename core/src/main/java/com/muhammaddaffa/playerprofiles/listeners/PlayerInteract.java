@@ -32,9 +32,10 @@ public class PlayerInteract implements Listener {
     @EventHandler
     public void onPlayerRightClickEntity(PlayerInteractAtEntityEvent event){
         // First of all we want to return the code if the right clicked entity is not player
-        if(!(event.getRightClicked() instanceof Player)) return;
+        if(!(event.getRightClicked() instanceof Player clicked)) return;
         // Get the player object from this event
         Player player = event.getPlayer();
+        if (!player.canSee(clicked)) return;
         // We check if the server is 1.9+, means they have off hand
         // This event will be fired twice for both main hand and off hand
         // So we want to stop the code if the interact hand is an off hand
@@ -62,7 +63,7 @@ public class PlayerInteract implements Listener {
         ProfileManager profileManager = plugin.getProfileManager();
         if(profileManager.isProfileLocked(target)){
             // Send a message to the player
-            player.sendMessage(Common.color(ConfigValue.LOCKED_PROFILE
+            Utils.sendMessage(player, Common.color(ConfigValue.LOCKED_PROFILE
                     .replace("{prefix}", ConfigValue.PREFIX)));
             // Stop the code
             return;
@@ -78,7 +79,7 @@ public class PlayerInteract implements Listener {
             // And if the time left is greater than 0, we stop the code here
             if(timeLeft > 0){
                 // Send player message
-                player.sendMessage(Common.color(ConfigValue.COOLDOWN_MESSAGE
+                Utils.sendMessage(player, Common.color(ConfigValue.COOLDOWN_MESSAGE
                         .replace("{prefix}", ConfigValue.PREFIX)
                         .replace("{time}", timeLeft + "")));
                 // Stop the code
@@ -88,7 +89,7 @@ public class PlayerInteract implements Listener {
         // Check for the disabled worlds, if the player is in disabled worlds
         // they can't open others profile
         if(ConfigValue.DISABLED_WORLDS.contains(player.getWorld().getName())){
-            player.sendMessage(Common.color(ConfigValue.DISABLED_WORLD_MESSAGE
+            Utils.sendMessage(player, Common.color(ConfigValue.DISABLED_WORLD_MESSAGE
                     .replace("{prefix}", ConfigValue.PREFIX)));
             return;
         }
@@ -100,7 +101,7 @@ public class PlayerInteract implements Listener {
             // we stopped the code
             for(String region : WorldGuardWrapper.getInstance().getRegionFinder().getRegions(player.getLocation())){
                 if(ConfigValue.DISABLED_REGIONS.contains(region)){
-                    player.sendMessage(Common.color(ConfigValue.PLAYER_DISABLED_REGIONS
+                    Utils.sendMessage(player, Common.color(ConfigValue.PLAYER_DISABLED_REGIONS
                             .replace("{prefix}", ConfigValue.PREFIX)));
                     return;
                 }
@@ -108,7 +109,7 @@ public class PlayerInteract implements Listener {
             // Now, we check for the target location
             for(String region : WorldGuardWrapper.getInstance().getRegionFinder().getRegions(target.getLocation())){
                 if(ConfigValue.DISABLED_REGIONS.contains(region)){
-                    player.sendMessage(Common.color(ConfigValue.TARGET_DISABLED_REGIONS
+                    Utils.sendMessage(player, Common.color(ConfigValue.TARGET_DISABLED_REGIONS
                             .replace("{prefix}", ConfigValue.PREFIX)));
                     return;
                 }
@@ -121,7 +122,7 @@ public class PlayerInteract implements Listener {
             if(DependencyManager.COMBAT_LOG_X){
                 // Check if the player is in combat, if true we return the code
                 if(HCombatLogX.isInCombat(player)){
-                    player.sendMessage(Common.color(ConfigValue.DISABLE_IN_COMBAT_MESSAGE
+                    Utils.sendMessage(player, Common.color(ConfigValue.DISABLE_IN_COMBAT_MESSAGE
                             .replace("{prefix}", ConfigValue.PREFIX)));
                     return;
                 }
@@ -130,7 +131,7 @@ public class PlayerInteract implements Listener {
             if(DependencyManager.DELUXE_COMBAT){
                 // Check if the player is in combat, if true we return the code
                 if(HDeluxeCombat.isInCombat(player)){
-                    player.sendMessage(Common.color(ConfigValue.DISABLE_IN_COMBAT_MESSAGE
+                    Utils.sendMessage(player, Common.color(ConfigValue.DISABLE_IN_COMBAT_MESSAGE
                             .replace("{prefix}", ConfigValue.PREFIX)));
                     return;
                 }

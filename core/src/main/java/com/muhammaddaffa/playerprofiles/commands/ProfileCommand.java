@@ -5,6 +5,7 @@ import com.muhammaddaffa.mdlib.utils.Logger;
 import com.muhammaddaffa.playerprofiles.ConfigValue;
 import com.muhammaddaffa.playerprofiles.PlayerProfiles;
 import com.muhammaddaffa.playerprofiles.inventory.InventoryManager;
+import com.muhammaddaffa.playerprofiles.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -63,7 +64,7 @@ public class ProfileCommand implements CommandExecutor, TabCompleter {
         if (args.length == 0) {
             // Permission: playerprofiles.profile
             if(!(player.hasPermission("playerprofiles.profile"))){
-                player.sendMessage(Common.color(ConfigValue.NO_PERMISSION
+                Utils.sendMessage(player, Common.color(ConfigValue.NO_PERMISSION
                         .replace("{prefix}", ConfigValue.PREFIX)
                         .replace("{permission}", "playerprofiles.profile")));
                 return true;
@@ -77,7 +78,7 @@ public class ProfileCommand implements CommandExecutor, TabCompleter {
         if (args.length == 1) {
             // Permission: playerprofiles.profile.others
             if(!(player.hasPermission("playerprofiles.profile.others"))){
-                player.sendMessage(Common.color(ConfigValue.NO_PERMISSION
+                Utils.sendMessage(player, Common.color(ConfigValue.NO_PERMISSION
                         .replace("{prefix}", ConfigValue.PREFIX)
                         .replace("[permission}", "playerprofiles.profile.others")));
                 return true;
@@ -87,7 +88,7 @@ public class ProfileCommand implements CommandExecutor, TabCompleter {
             Player target = Bukkit.getPlayer(args[0]);
             // If the target is invalid, return the code
             if(target == null){
-                sender.sendMessage(Common.color(ConfigValue.INVALID_PLAYER
+                Utils.sendMessage(sender, Common.color(ConfigValue.INVALID_PLAYER
                         .replace("{prefix}", ConfigValue.PREFIX)
                         .replace("{player}", args[0])));
                 return true;

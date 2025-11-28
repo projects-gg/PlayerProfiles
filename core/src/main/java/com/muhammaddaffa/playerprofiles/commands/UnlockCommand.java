@@ -4,6 +4,7 @@ import com.muhammaddaffa.mdlib.utils.Common;
 import com.muhammaddaffa.mdlib.utils.Logger;
 import com.muhammaddaffa.playerprofiles.ConfigValue;
 import com.muhammaddaffa.playerprofiles.PlayerProfiles;
+import com.muhammaddaffa.playerprofiles.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -53,21 +54,20 @@ public class UnlockCommand implements CommandExecutor, TabCompleter {
         if(args.length == 0){
             // Permission: playerprofiles.unlockprofile
             if(!(sender.hasPermission("playerprofiles.unlockprofile"))){
-                sender.sendMessage(Common.color(ConfigValue.NO_PERMISSION
+                Utils.sendMessage(sender, Common.color(ConfigValue.NO_PERMISSION
                         .replace("{prefix}", ConfigValue.PREFIX)
                         .replace("{permission}", "playerprofiles.unlockprofile")));
                 return true;
             }
             // If the sender is not a player (the sender is console)
-            if(!(sender instanceof Player)){
+            if(!(sender instanceof Player player)){
                 // Send console a usage message and return the code
-                sender.sendMessage(Common.color("&cUsage: /unlockprofile (player)"));
+                Utils.sendMessage(sender, Common.color("&cUsage: /unlockprofile (player)"));
                 return true;
             }
             // After the check above, we can get the Player object from the sender
-            Player player = (Player) sender;
             // Send a lock profile message to player
-            player.sendMessage(Common.color(ConfigValue.UNLOCK_PROFILE
+            Utils.sendMessage(player, Common.color(ConfigValue.UNLOCK_PROFILE
                     .replace("{prefix}", ConfigValue.PREFIX)));
             // Actually lock the player's profile
             plugin.getProfileManager().unlockProfile(player);
@@ -76,7 +76,7 @@ public class UnlockCommand implements CommandExecutor, TabCompleter {
         if(args.length == 1){
             // Permission: playerprofiles.unlockprofile.others
             if(!(sender.hasPermission("playerprofiles.unlockprofile.others"))){
-                sender.sendMessage(Common.color(ConfigValue.NO_PERMISSION
+                Utils.sendMessage(sender, Common.color(ConfigValue.NO_PERMISSION
                         .replace("{prefix}", ConfigValue.PREFIX)
                         .replace("{permission}", "playerprofiles.unlockprofile.others")));
                 return true;
@@ -86,7 +86,7 @@ public class UnlockCommand implements CommandExecutor, TabCompleter {
             // Check if the player is not valid or online
             if(player == null){
                 // Send an invalid player message
-                sender.sendMessage(Common.color(ConfigValue.INVALID_PLAYER
+                Utils.sendMessage(sender, Common.color(ConfigValue.INVALID_PLAYER
                         .replace("{prefix}", ConfigValue.PREFIX)));
                 // Stop the code
                 return true;
@@ -95,7 +95,7 @@ public class UnlockCommand implements CommandExecutor, TabCompleter {
             // Now, we finally locked the player's profile
             plugin.getProfileManager().unlockProfile(player);
             // And send the message to the command sender
-            sender.sendMessage(Common.color(ConfigValue.UNLOCK_PROFILE_OTHERS
+            Utils.sendMessage(sender, Common.color(ConfigValue.UNLOCK_PROFILE_OTHERS
                     .replace("{prefix}", ConfigValue.PREFIX)
                     .replace("{player}", player.getName())));
         }

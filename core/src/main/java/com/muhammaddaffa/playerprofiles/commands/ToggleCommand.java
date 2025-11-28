@@ -4,6 +4,7 @@ import com.muhammaddaffa.mdlib.utils.Common;
 import com.muhammaddaffa.mdlib.utils.Logger;
 import com.muhammaddaffa.playerprofiles.ConfigValue;
 import com.muhammaddaffa.playerprofiles.PlayerProfiles;
+import com.muhammaddaffa.playerprofiles.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
@@ -47,28 +48,27 @@ public class ToggleCommand implements CommandExecutor, TabCompleter {
         if(args.length == 0){
             // Permission: playerprofiles.lockprofile
             if(!(sender.hasPermission("playerprofiles.toggleprofile"))){
-                sender.sendMessage(Common.color(ConfigValue.NO_PERMISSION
+                Utils.sendMessage(sender, Common.color(ConfigValue.NO_PERMISSION
                         .replace("{prefix}", ConfigValue.PREFIX)
                         .replace("{permission}", "playerprofiles.toggleprofile")));
                 return true;
             }
             // If the sender is not a player (the sender is console)
-            if(!(sender instanceof Player)){
+            if(!(sender instanceof Player player)){
                 // Send console a usage message and return the code
-                sender.sendMessage(Common.color("&cUsage: /toggleprofile (player)"));
+                Utils.sendMessage(sender, Common.color("&cUsage: /toggleprofile (player)"));
                 return true;
             }
             // After the check above, we can get the Player object from the sender
-            Player player = (Player) sender;
             // Check if player is locked
             if (plugin.getProfileManager().getOrCreate(player).isLocked()) {
-                player.sendMessage(Common.color(ConfigValue.UNLOCK_PROFILE
+                Utils.sendMessage(player, Common.color(ConfigValue.UNLOCK_PROFILE
                         .replace("{prefix}", ConfigValue.PREFIX)));
                 // Actually lock the player's profile
                 plugin.getProfileManager().unlockProfile(player);
             } else {
                 // Send a lock profile message to player
-                player.sendMessage(Common.color(ConfigValue.LOCK_PROFILE
+                Utils.sendMessage(player, Common.color(ConfigValue.LOCK_PROFILE
                         .replace("{prefix}", ConfigValue.PREFIX)));
                 // Actually lock the player's profile
                 plugin.getProfileManager().lockProfile(player);

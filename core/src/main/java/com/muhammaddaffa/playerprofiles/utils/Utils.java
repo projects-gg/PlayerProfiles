@@ -7,6 +7,7 @@ import com.muhammaddaffa.playerprofiles.manager.profile.ProfileManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -81,6 +82,10 @@ public class Utils {
         float pitch = (float) config.getDouble(path + ".pitch");
         // Finally play the sound to the player
         player.playSound(location, sound, volume, pitch);
+    }
+
+    public static void sendMessage(CommandSender sendTo, String msg) {
+        sendTo.sendMessage(msg);
     }
 
     public static boolean hasOffHand() {

@@ -88,7 +88,7 @@ public class ProfileInventory extends FastInv {
             // Close the inventory
             player.closeInventory();
             // Send a message to the player
-            player.sendMessage(Common.color(ConfigValue.DISTANCE_TOO_FAR
+            Utils.sendMessage(player, Common.color(ConfigValue.DISTANCE_TOO_FAR
                     .replace("{prefix}", ConfigValue.PREFIX))
                     .replace("{player}", target.getName()));
             return;
@@ -97,7 +97,7 @@ public class ProfileInventory extends FastInv {
             // Close the inventory
             player.closeInventory();
             // Send a message to the player
-            player.sendMessage(Common.color(ConfigValue.DISTANCE_TOO_FAR
+            Utils.sendMessage(player, Common.color(ConfigValue.DISTANCE_TOO_FAR
                     .replace("{prefix}", ConfigValue.PREFIX))
                     .replace("{player}", target.getName()));
             return;
@@ -109,7 +109,7 @@ public class ProfileInventory extends FastInv {
             // Close the inventory
             player.closeInventory();
             // Send a message to the player
-            player.sendMessage(Common.color(ConfigValue.DISTANCE_TOO_FAR
+            Utils.sendMessage(player, Common.color(ConfigValue.DISTANCE_TOO_FAR
                     .replace("{prefix}", ConfigValue.PREFIX))
                     .replace("{player}", target.getName()));
         }

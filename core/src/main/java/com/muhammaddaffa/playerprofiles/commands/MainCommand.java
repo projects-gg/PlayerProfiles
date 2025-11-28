@@ -9,6 +9,7 @@ import com.muhammaddaffa.playerprofiles.commands.subcommands.ListGUICommand;
 import com.muhammaddaffa.playerprofiles.commands.subcommands.OpenGUICommand;
 import com.muhammaddaffa.playerprofiles.commands.subcommands.OpenProfileCommand;
 import com.muhammaddaffa.playerprofiles.commands.subcommands.ReloadCommand;
+import com.muhammaddaffa.playerprofiles.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -86,7 +87,7 @@ public class MainCommand implements CommandExecutor, TabCompleter {
             // Check if sender/player doesn't have permission for the subcommand
             if(!(sender.hasPermission(subCommand.getPermission()))){
                 // Return and send messages
-                sender.sendMessage(Common.color(ConfigValue.NO_PERMISSION
+                Utils.sendMessage(sender, Common.color(ConfigValue.NO_PERMISSION
                         .replace("{prefix}", ConfigValue.PREFIX)
                         .replace("{permission}", subCommand.getPermission())));
                 return true;
@@ -122,7 +123,7 @@ public class MainCommand implements CommandExecutor, TabCompleter {
 
     private void sendHelpMessages(CommandSender sender){
         ConfigValue.HELP_MESSAGES.forEach(message ->
-                sender.sendMessage(Common.color(message)));
+                Utils.sendMessage(sender, Common.color(message)));
     }
 
 }
