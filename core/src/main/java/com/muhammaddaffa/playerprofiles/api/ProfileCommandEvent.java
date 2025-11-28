@@ -11,18 +11,15 @@ public class ProfileCommandEvent extends PlayerEvent implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     private boolean cancelled;
 
-    public ProfileCommandEvent(Player player) {
+    private final Player target;
+
+    public ProfileCommandEvent(Player player, Player target) {
         super(player);
+        this.target = target;
     }
 
-    @NotNull
-    public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    @NotNull
-    public static HandlerList getHandlerList() {
-        return handlers;
+    public Player getTarget() {
+        return target;
     }
 
     @Override
@@ -33,6 +30,16 @@ public class ProfileCommandEvent extends PlayerEvent implements Cancellable {
     @Override
     public void setCancelled(boolean cancelled) {
         this.cancelled = cancelled;
+    }
+
+    @NotNull
+    public HandlerList getHandlers() {
+        return handlers;
+    }
+
+    @NotNull
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
 }

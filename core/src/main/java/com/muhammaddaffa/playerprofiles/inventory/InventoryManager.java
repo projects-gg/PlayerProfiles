@@ -51,7 +51,7 @@ public class InventoryManager {
         //System.out.println("NOT NULL");
         // Finally open the inventory for the player
 
-        ProfileCommandEvent event = new ProfileCommandEvent(player);
+        ProfileCommandEvent event = new ProfileCommandEvent(player, target);
         Bukkit.getPluginManager().callEvent(event);
         if (event.isCancelled()) {
             return;
