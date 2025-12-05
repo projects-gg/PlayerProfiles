@@ -6,20 +6,25 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerEvent;
 import org.jetbrains.annotations.NotNull;
 
-public class ProfileCommandEvent extends PlayerEvent implements Cancellable {
+public class ProfileShiftRightClickEvent extends PlayerEvent implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
 
     private boolean cancelled;
-    private final Player target;
+    private final Player clickedTo;
 
-    public ProfileCommandEvent(Player player, Player target) {
-        super(player);
-        this.target = target;
+    public ProfileShiftRightClickEvent(@NotNull Player who, @NotNull Player clickedTo) {
+        super(who);
+        this.clickedTo = clickedTo;
     }
 
-    public Player getTarget() {
-        return target;
+    public Player getClickedTo() {
+        return clickedTo;
+    }
+
+    @NotNull
+    public HandlerList getHandlers() {
+        return handlers;
     }
 
     @Override
@@ -30,11 +35,6 @@ public class ProfileCommandEvent extends PlayerEvent implements Cancellable {
     @Override
     public void setCancelled(boolean cancelled) {
         this.cancelled = cancelled;
-    }
-
-    @NotNull
-    public HandlerList getHandlers() {
-        return handlers;
     }
 
     @NotNull

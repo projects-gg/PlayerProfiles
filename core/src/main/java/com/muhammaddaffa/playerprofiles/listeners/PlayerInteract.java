@@ -3,6 +3,7 @@ package com.muhammaddaffa.playerprofiles.listeners;
 import com.muhammaddaffa.mdlib.utils.Common;
 import com.muhammaddaffa.playerprofiles.ConfigValue;
 import com.muhammaddaffa.playerprofiles.PlayerProfiles;
+import com.muhammaddaffa.playerprofiles.api.ProfileShiftRightClickEvent;
 import com.muhammaddaffa.playerprofiles.hooks.combatlogx.HCombatLogX;
 import com.muhammaddaffa.playerprofiles.hooks.deluxecombat.HDeluxeCombat;
 import com.muhammaddaffa.playerprofiles.inventory.InventoryManager;
@@ -10,6 +11,7 @@ import com.muhammaddaffa.playerprofiles.manager.DependencyManager;
 import com.muhammaddaffa.playerprofiles.manager.profile.ProfileManager;
 import com.muhammaddaffa.playerprofiles.utils.Utils;
 import com.muhammaddaffa.playerprofiles.worldguardwrapper.WorldGuardWrapper;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -61,6 +63,13 @@ public class PlayerInteract implements Listener {
         if(ConfigValue.DISABLE_NPC_PROFILE && target.hasMetadata("NPC")){
             return;
         }
+
+        ProfileShiftRightClickEvent clickEvent = new ProfileShiftRightClickEvent(player, target);
+        Bukkit.getPluginManager().callEvent(clickEvent);
+        if (clickEvent.isCancelled()) {
+            return;
+        }
+
         // Profile locked feature, basically every player can lock their profile
         // so no one can open their profile. First, we need to get the ProfileManager
         ProfileManager profileManager = plugin.getProfileManager();

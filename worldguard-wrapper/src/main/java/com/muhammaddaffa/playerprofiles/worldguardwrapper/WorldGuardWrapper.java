@@ -1,7 +1,6 @@
 package com.muhammaddaffa.playerprofiles.worldguardwrapper;
 
 import com.muhammaddaffa.api.IRegionFinder;
-import com.muhammaddaffa.playerprofiles.worldguardwrapper.wg6.RegionFinder6;
 import com.muhammaddaffa.playerprofiles.worldguardwrapper.wg7.RegionFinder7;
 
 public class WorldGuardWrapper {
@@ -20,7 +19,7 @@ public class WorldGuardWrapper {
             Class.forName("com.sk89q.worldguard.WorldGuard");
             selected = new RegionFinder7();
         } catch (ClassNotFoundException ex){
-            selected = new RegionFinder6();
+            selected = null;
         }
         regionFinder = selected;
     }

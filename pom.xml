@@ -19,7 +19,6 @@
         <module>core</module>
         <module>api</module>
         <module>worldguard-wrapper</module>
-        <module>worldguard6</module>
         <module>worldguard7</module>
     </modules>
 
